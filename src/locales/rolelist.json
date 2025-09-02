@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Dashboard",
+        "key": "dashboard",
+        "permission" : ["view", "print"]
+    },
+    {
+        "name": "Server",
+        "key": "server",
+        "permission" : ["view", "add", "edit", "delete"]
+    },
+    {
+        "name": "Domain",
+        "key": "domain",
+        "permission" : ["view", "add", "edit", "delete"]
+    }
+]
