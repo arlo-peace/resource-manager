@@ -6,12 +6,8 @@
         <div class="card-body p-4 pb-5 my-2">
           <div class="mw-350 text-center">
             <h3 class="text-primary fw-semibold fs-20 mb-2">
-              Welcome to Trezo Dashboard !
+              {{$t('wbtm')}}
             </h3>
-            <p class="text-primary fs-15">
-              You have done 68% 😎 more sales today. Check your new badge in
-              your profile.
-            </p>
           </div>
         </div>
       </div>
@@ -29,7 +25,7 @@
             </span>
           </div>
           <div class="form-group mb-4">
-            <label class="label text-secondary">Password</label>
+            <label class="label text-secondary">{{$t('password')}}</label>
             <div class="form-group">
               <div class="password-wrapper position-relative">
                 <input

@@ -1,43 +1,34 @@
 <template>
     <div class="main-content-container overflow-hidden">
-        <PageTitle :pageTitle="$t('memberlist')" :subTitle="$t('teams')" />
+        <PageTitle :pageTitle="$t('providerlist')" :subTitle="$t('provider')" />
 
         <div class="card bg-white border-0 rounded-3 mb-4">
             <div class="card-body p-0">
             <div
                 class="d-flex justify-content-between align-items-center flex-wrap gap-2 p-4"
             >
-              <div class="d-flex">
-                <form class="position-relative table-src-form me-0" @submit.prevent>
-                <input
-                    type="text"
-                    class="form-control"
-                    :placeholder="$t('searchhere')"
-                    v-model="searchTerm"
-                />
-                <i class="material-symbols-outlined position-absolute top-50 start-0 translate-middle-y">
-                    search
-                </i>
-                </form>
-                <div class="ms-3">
-                  <select class="form-select" aria-label="Default select example">
-                    <option selected>{{$t('allteam')}}</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                  </select> 
+                <div>
+                  <form class="position-relative table-src-form me-0" @submit.prevent>
+                    <input
+                        type="text"
+                        class="form-control"
+                        :placeholder="$t('searchhere')"
+                        v-model="searchTerm"
+                    />
+                    <i class="material-symbols-outlined position-absolute top-50 start-0 translate-middle-y">
+                        search
+                    </i>
+                  </form>
                 </div>
-              </div>
-                
                 <button
                     class="btn btn-outline-primary py-1 px-2 px-sm-4 fs-14 fw-medium rounded-3 hover-bg"
                     data-bs-toggle="modal"
-                    data-bs-target="#addMemberModal"
-                    aria-controls="addMemberModal"
+                    data-bs-target="#addProviderModal"
+                    aria-controls="addProviderModal"
                 >
                 <span class="py-sm-1 d-block">
                     <i class="ri-add-line d-none d-sm-inline-block me-1"></i>
-                    <span>{{$t('addnew')}}</span>
+                    <span>{{ $t('addnew') }}</span>
                 </span>
                 </button>
             </div>
@@ -57,10 +48,10 @@
                             </label>
                         </div>
                         </th>
-                        <th scope="col">{{$t('team')}}</th>
-                        <th scope="col">{{$t('membername')}}</th>
-                        <th scope="col">{{$t('role')}}</th>
-                        <th width="60" scope="col">{{$t('action')}}</th>
+                        <th scope="col">{{ $t('name') }}</th>
+                        <th scope="col">{{ $t('type') }}</th>
+                        <th scope="col">{{ $t('website') }}</th>
+                        <th width="60" scope="col">{{ $t('action') }}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -84,13 +75,12 @@
                         </RouterLink>
                         </td>
                         <td>{{ item.assignedTo }}</td>
-                        <td>
-                        <span
-                            class="badge bg-opacity-10 p-2 fs-12 fw-normal"
-                            :class="computeClass(item.status)"
+                        <td
+                          data-bs-toggle="modal"
+                          data-bs-target="#assignRoleModal"
+                          aria-controls="assignRoleModal"
                         >
-                            {{ item.status }}
-                        </span>
+                          {{ item.assignedTo }}
                         </td>
 
                         <td>
@@ -129,24 +119,35 @@
             </div>
             </div>
         </div>
-        <AddMember/>
+        <AddProvider/>
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from "vue";
+import { defineComponent, ref, computed, onMounted } from "vue";
+import { Tooltip } from "bootstrap";
 import PageTitle from "../../components/Commons/PageTitle.vue";
-import Pagination from "../../components/Commons/Pagination.vue"
-import AddMember from './AddMember.vue'
+import Pagination from "../../components/Commons/Pagination.vue";
+import AddProvider from './AddProvider.vue'
 
 export default defineComponent({
-  name: "TeamListPage",
+  name: "ProviderListPage",
   components: {
     PageTitle,
     Pagination,
-    AddMember
+    AddProvider
   },
   setup() {
+    onMounted(() => {
+      // initialize Bootstrap tooltips
+      const tooltipTriggerList = document.querySelectorAll(
+        '[data-bs-toggle="tooltip"]'
+      );
+      tooltipTriggerList.forEach((el) => {
+        new Tooltip(el);
+      });
+    });
+
     const items = ref([
       {
         id: "#854",

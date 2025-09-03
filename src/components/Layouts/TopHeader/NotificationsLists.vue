@@ -12,11 +12,11 @@
     <div class="dropdown-menu dropdown-lg p-0 border-0 p-0 dropdown-menu-end">
       <div class="d-flex justify-content-between align-items-center title">
         <span class="fw-semibold fs-15 text-secondary">
-          Notifications
+          {{ $t('notifications') }}
           <span class="fw-normal text-body fs-14">(03)</span>
         </span>
         <button class="p-0 m-0 bg-transparent border-0 fs-14 text-primary">
-          Clear All
+          {{ $t('clearall') }}
         </button>
       </div>
 

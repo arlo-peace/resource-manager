@@ -11,16 +11,11 @@
               class="rounded-3 for-light-logo"
               alt="login"
             />
-            <img
-              src="@/assets/images/white-logo.svg"
-              class="rounded-3 for-dark-logo"
-              alt="login"
-            />
           </div>
-          <h3 class="fs-28 mb-2">Welcome back to Management</h3>
+          <h3 class="fs-28 mb-2">{{$t('wbtm')}}</h3>
           <form>
             <div class="form-group mb-4">
-              <label class="label text-secondary">Username</label>
+              <label class="label text-secondary">{{$t('username')}}</label>
               <input
                 type="username"
                 class="form-control h-55"
@@ -28,11 +23,11 @@
               />
             </div>
             <div class="form-group mb-4">
-              <label class="label text-secondary">Password</label>
+              <label class="label text-secondary">{{$t('password')}}</label>
               <input
                 type="password"
                 class="form-control h-55"
-                placeholder="Type password"
+                :placeholder="$t('password')"
               />
             </div>
             <!-- <div class="form-group mb-4">
@@ -54,7 +49,7 @@
                   <i class="material-symbols-outlined text-white fs-20 me-2">
                     login
                   </i>
-                  <span>Login</span>
+                  <span>{{$t('login')}}</span>
                 </div>
               </RouterLink>
             </div>

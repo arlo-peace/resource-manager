@@ -42,28 +42,19 @@
         <li>
           <RouterLink
             class="dropdown-item d-flex align-items-center text-body"
-            to="/my-profile"
-          >
-            <i class="material-symbols-outlined">account_circle</i>
-            <span class="ms-2">My Profile</span>
-          </RouterLink>
-        </li>
-        <li>
-          <RouterLink
-            class="dropdown-item d-flex align-items-center text-body"
-            to="/apps/chat"
+            to="/messages"
           >
             <i class="material-symbols-outlined">chat</i>
-            <span class="ms-2">Messages</span>
+            <span class="ms-2">{{ $t('messages') }}</span>
           </RouterLink>
         </li>
         <li>
           <RouterLink
             class="dropdown-item d-flex align-items-center text-body"
-            to="/apps/to-do-list"
+            to="/mytask"
           >
             <i class="material-symbols-outlined">format_list_bulleted </i>
-            <span class="ms-2">My Task</span>
+            <span class="ms-2">{{ $t('mytask') }}</span>
           </RouterLink>
         </li>
       </ul>
@@ -72,30 +63,30 @@
         <li>
           <RouterLink
             class="dropdown-item d-flex align-items-center text-body"
-            to="/social/settings"
+            to="/settings/account-settings"
           >
             <i class="material-symbols-outlined">settings </i>
-            <span class="ms-2">Settings</span>
+            <span class="ms-2">{{ $t('settings') }}</span>
           </RouterLink>
         </li>
 
         <li>
           <RouterLink
             class="dropdown-item d-flex align-items-center text-body"
-            to="/authentication/lock-screen"
+            to="/lock-screen"
           >
             <i class="material-symbols-outlined">lock</i>
-            <span class="ms-2">Lock Screen</span>
+            <span class="ms-2">{{ $t('lockscreen') }}</span>
           </RouterLink>
         </li>
 
         <li>
           <RouterLink
             class="dropdown-item d-flex align-items-center text-body"
-            to="/authentication/login"
+            to="/login"
           >
             <i class="material-symbols-outlined">logout</i>
-            <span class="ms-2">Logout</span>
+            <span class="ms-2">{{ $t('logout') }}</span>
           </RouterLink>
         </li>
       </ul>

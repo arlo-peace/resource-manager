@@ -1,23 +1,25 @@
 <template>
     <div class="main-content-container overflow-hidden">
-        <PageTitle pageTitle="User List" subTitle="Auth" />
+        <PageTitle :pageTitle="$t('userlist')" :subTitle="$t('authentication')" />
 
         <div class="card bg-white border-0 rounded-3 mb-4">
             <div class="card-body p-0">
             <div
                 class="d-flex justify-content-between align-items-center flex-wrap gap-2 p-4"
             >
-                <form class="position-relative table-src-form me-0" @submit.prevent>
-                <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Search here"
-                    v-model="searchTerm"
-                />
-                <i class="material-symbols-outlined position-absolute top-50 start-0 translate-middle-y">
-                    search
-                </i>
-                </form>
+                <div>
+                  <form class="position-relative table-src-form me-0" @submit.prevent>
+                    <input
+                        type="text"
+                        class="form-control"
+                        :placeholder="$t('searchhere')"
+                        v-model="searchTerm"
+                    />
+                    <i class="material-symbols-outlined position-absolute top-50 start-0 translate-middle-y">
+                        search
+                    </i>
+                  </form>
+                </div>
                 <button
                     class="btn btn-outline-primary py-1 px-2 px-sm-4 fs-14 fw-medium rounded-3 hover-bg"
                     data-bs-toggle="modal"
@@ -26,7 +28,7 @@
                 >
                 <span class="py-sm-1 d-block">
                     <i class="ri-add-line d-none d-sm-inline-block me-1"></i>
-                    <span>Add New</span>
+                    <span>{{ $t('addnew') }}</span>
                 </span>
                 </button>
             </div>
@@ -46,11 +48,11 @@
                             </label>
                         </div>
                         </th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Username</th>
-                        <th scope="col">Role</th>
-                        <th scope="col">Status</th>
-                        <th width="60" scope="col">Action</th>
+                        <th scope="col">{{ $t('name') }}</th>
+                        <th scope="col">{{ $t('username') }}</th>
+                        <th scope="col">{{ $t('role') }}</th>
+                        <th scope="col">{{ $t('status') }}</th>
+                        <th width="60" scope="col">{{ $t('action') }}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -74,13 +76,27 @@
                         </RouterLink>
                         </td>
                         <td>{{ item.assignedTo }}</td>
-                        <td>{{ item.assignedTo }}</td>
+                        <td
+                          data-bs-toggle="modal"
+                          data-bs-target="#assignRoleModal"
+                          aria-controls="assignRoleModal"
+                        >
+                          {{ item.assignedTo }}
+                          <button
+                            class="ps-0 border-0 bg-transparent lh-1 position-relative top-2"
+                            data-bs-toggle="tooltip" 
+                            data-bs-placement="top" 
+                            :data-bs-title="$t('assignrole')"
+                          >
+                            <i class="ri-edit-box-line fs-16 text-primary"></i>
+                          </button>
+                        </td>
                         <td>
                         <span
                             class="badge bg-opacity-10 p-2 fs-12 fw-normal"
                             :class="computeClass(item.status)"
                         >
-                            {{ item.status }}
+                            {{ $t(item.status) }}
                         </span>
                         </td>
 
@@ -121,23 +137,37 @@
             </div>
         </div>
         <AddUser/>
+        <AssignRole/>
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from "vue";
+import { defineComponent, ref, computed, onMounted } from "vue";
+import { Tooltip } from "bootstrap";
 import PageTitle from "../../components/Commons/PageTitle.vue";
-import Pagination from "../../components/Commons/Pagination.vue"
+import Pagination from "../../components/Commons/Pagination.vue";
 import AddUser from './AddUser.vue'
+import AssignRole from './AssignRole.vue'
 
 export default defineComponent({
   name: "UserListPage",
   components: {
     PageTitle,
     Pagination,
-    AddUser
+    AddUser,
+    AssignRole
   },
   setup() {
+    onMounted(() => {
+      // initialize Bootstrap tooltips
+      const tooltipTriggerList = document.querySelectorAll(
+        '[data-bs-toggle="tooltip"]'
+      );
+      tooltipTriggerList.forEach((el) => {
+        new Tooltip(el);
+      });
+    });
+
     const items = ref([
       {
         id: "#854",

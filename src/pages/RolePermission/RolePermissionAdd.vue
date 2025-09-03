@@ -1,20 +1,20 @@
 <template>
   <div class="main-content-container overflow-hidden">
-    <PageTitle pageTitle="Role & Permission Add" subTitle="Auth" />
+    <PageTitle :pageTitle="$t('rolepermissionadd')" :subTitle="$t('authentication')" />
 
     <div class="card bg-white border-0 rounded-3 mb-4">
       <div class="card-header">
         <div
             class="d-flex justify-content-between align-items-center flex-wrap gap-2 p-0"
         >
-            <h5 class="mb-0">Add</h5>
+            <h5 class="mb-0">{{ $t('add') }}</h5>
             <RouterLink to="/role-permission" class="menu-link">
             <button
                 class="btn btn-outline-secondary py-1 px-2 px-sm-4 fs-14 fw-medium rounded-3 hover-bg"
             >
             <span class="py-sm-1 d-block">
                 <i class="ri-arrow-left-line d-none d-sm-inline-block me-1"></i>
-                <span>Back</span>
+                <span>{{ $t('back') }}</span>
             </span>
             </button>
             </RouterLink>
@@ -27,9 +27,9 @@
               <!-- Role -->
               <div class="row mb-15">
                 <div class="col-lg-6">
-                  <label class="label text-secondary">Role</label>
+                  <label class="label text-secondary">{{ $t('role') }}</label>
                   <select v-model="selectedRole" class="form-select form-control h-55">
-                    <option disabled value="">Select role</option>
+                    <option disabled value="">{{ $t('selectone') }}</option>
                     <option value="manager">Manager</option>
                     <option value="owner">Owner</option>
                     <option value="member">Member</option>
@@ -41,7 +41,7 @@
               <!-- Permissions -->
               <div class="row">
                 <div class="col-lg-6">
-                  <label class="label text-secondary">Permission</label>
+                  <label class="label text-secondary">{{ $t('permission') }}</label>
                   <div
                     v-for="module in modules"
                     :key="module.key"
@@ -62,7 +62,7 @@
                           :value="action"
                         />
                         <label class="form-check-label" :for="`${module.key}-${action}`">
-                          {{ action }}
+                          {{ $t(action) }}
                         </label>
                       </div>
                     </div>
@@ -91,7 +91,7 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import PageTitle from "../../components/Commons/PageTitle.vue";
-import rawModules from "../../locales/rolelist.json";
+import rawModules from "@/rolelist.json";
 
 interface Module {
   name: string;

@@ -14,7 +14,6 @@
             <li class="logo">
               <RouterLink to="/dashboard" class="d-block text-decoration-none">
                 <img class="logo-black" src="@/assets/images/logo.svg" alt="logo-icon" />
-                <img class="logo-white" src="@/assets/images/logo-white.svg" alt="logo-icon" />
               </RouterLink>
             </li>
             <li class="burger-menu">
@@ -57,7 +56,6 @@
         </div>
       </div>
     </div>
-    <Navbar />
   </header>
 </template>
 
@@ -70,7 +68,6 @@ import DarkSwtichBtn from "./DarkSwtichBtn.vue";
 import LanguageMenu from "./LanguageMenu.vue";
 import NotificationsLists from "./NotificationsLists.vue";
 import AdminProfile from "./AdminProfile.vue";
-import Navbar from "./Navbar.vue";
 
 export default defineComponent({
   name: "TopHeader",
@@ -80,7 +77,6 @@ export default defineComponent({
     LanguageMenu,
     NotificationsLists,
     AdminProfile,
-    Navbar,
   },
   setup() {
     const stateStoreInstance = stateStore;

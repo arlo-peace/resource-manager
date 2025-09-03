@@ -8,11 +8,11 @@
       <ol class="breadcrumb align-items-center mb-0 lh-1">
         <li class="breadcrumb-item">
           <RouterLink
-            to="/dashboard"
+            to="/"
             class="d-flex align-items-center text-decoration-none"
           >
             <i class="ri-home-4-line fs-18 text-primary me-1"></i>
-            <span class="text-secondary fw-medium hover">Dashboard</span>
+            <span class="text-secondary fw-medium hover">{{$t('dashboard')}}</span>
           </RouterLink>
         </li>
         <li class="breadcrumb-item active" aria-current="page" v-if="subTitle">

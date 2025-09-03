@@ -3,13 +3,13 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="addMemberModal">Add Member</h1>
+          <h1 class="modal-title fs-5" id="addMemberModal">{{$t('addmember')}}</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form>
             <div class="form-group mb-4">
-              <label class="label">Team</label>
+              <label class="label">{{$t('team')}}</label>
               <select
                 class="form-select form-control text-dark"
                 aria-label="Default select example"
@@ -19,7 +19,7 @@
               </select>
             </div>
             <div class="form-group mb-4">
-              <label class="label">User</label>
+              <label class="label">{{$t('user')}}</label>
               <select
                 class="form-select form-control text-dark"
                 aria-label="Default select example"
@@ -29,7 +29,7 @@
               </select>
             </div>
             <div class="form-group mb-4">
-              <label class="label">Role</label>
+              <label class="label">{{$t('role')}}</label>
               <select
                 class="form-select form-control text-dark"
                 aria-label="Default select example"
@@ -47,7 +47,7 @@
               >
                 <span class="py-sm-1 d-block">
                   <i class="ri-add-line text-white me-1"></i>
-                  <span>Add Member</span>
+                  <span>{{$t('addmember')}}</span>
                 </span>
               </button>
             </div>

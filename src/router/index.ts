@@ -12,6 +12,11 @@ import RoleListPage from "@/pages/Role/RoleListPage.vue";
 import PermissionListPage from "@/pages/Permission/PermissionListPage.vue";
 import RolePermissionListPage from "@/pages/RolePermission/RolePermissionListPage.vue";
 import RolePermissionAdd from "@/pages/RolePermission/RolePermissionAdd.vue";
+import MyProfilePage from "@/pages/MyProfilePage.vue";
+import AccountSettingsPage from "@/pages/Settings/AccountSettingsPage.vue";
+import ChangePasswordPage from "@/pages/Settings/ChangePasswordPage.vue";
+import ProviderPage from "@/pages/Provider/ProviderPage.vue";
+import ProviderInfoPage from "@/pages/Provider/ProviderInfoPage.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -73,6 +78,26 @@ const routes: Array<RouteRecordRaw> = [
     path: "/role-permission/add",
     name: "RolePermissionAdd",
     component: RolePermissionAdd
+  },
+  {
+    path: "/settings/account-settings",
+    name: "AccountSettingsPage",
+    component: AccountSettingsPage
+  },
+  {
+    path: "/settings/change-password",
+    name: "ChangePasswordPage",
+    component: ChangePasswordPage
+  },
+  {
+    path: "/provider",
+    name: "ProviderPage",
+    component: ProviderPage
+  },
+  {
+    path: "/providerinfo",
+    name: "ProviderInfoPage",
+    component: ProviderInfoPage
   }
 ]
 

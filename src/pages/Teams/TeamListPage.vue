@@ -1,6 +1,6 @@
 <template>
     <div class="main-content-container overflow-hidden">
-        <PageTitle pageTitle="Team List" subTitle="Teams" />
+        <PageTitle :pageTitle="$t('teamlist')" :subTitle="$t('teams')" />
 
         <div class="card bg-white border-0 rounded-3 mb-4">
             <div class="card-body p-0">
@@ -11,7 +11,7 @@
                 <input
                     type="text"
                     class="form-control"
-                    placeholder="Search here"
+                    :placeholder="$t('searchhere')"
                     v-model="searchTerm"
                 />
                 <i class="material-symbols-outlined position-absolute top-50 start-0 translate-middle-y">
@@ -26,7 +26,7 @@
                 >
                 <span class="py-sm-1 d-block">
                     <i class="ri-add-line d-none d-sm-inline-block me-1"></i>
-                    <span>Add New</span>
+                    <span>{{$t('addnew')}}</span>
                 </span>
                 </button>
             </div>
@@ -46,10 +46,10 @@
                             </label>
                         </div>
                         </th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Note</th>
-                        <th scope="col">Status</th>
-                        <th width="60" scope="col">Action</th>
+                        <th scope="col">{{$t('name')}}</th>
+                        <th scope="col">{{$t('note')}}</th>
+                        <th scope="col">{{$t('status')}}</th>
+                        <th width="60" scope="col">{{$t('action')}}</th>
                     </tr>
                     </thead>
                     <tbody>

@@ -10,12 +10,15 @@
     </button>
     <div class="dropdown-menu dropdown-lg p-0 border-0 dropdown-menu-end">
       <span class="fw-semibold fs-15 text-secondary title">
-        Choose Language
+        {{ $t('chooselanguage') }}
       </span>
       <div class="max-h-275">
         <div class="notification-menu">
           <a href="javascript:void(0);" class="dropdown-item">
-            <div class="d-flex align-items-center">
+            <div 
+              class="d-flex align-items-center"
+              @click="changeLanguage('en')"
+            >
               <div class="flex-shrink-0">
                 <img
                   src="@/assets/images/usa.svg"
@@ -24,12 +27,15 @@
                 />
               </div>
               <div class="flex-grow-1 ms-2">
-                <span class="text-secondary fw-medium fs-14">English</span>
+                <span class="text-secondary fw-medium fs-14">{{ $t('english') }}</span>
               </div>
             </div>
           </a>
           <a href="javascript:void(0);" class="dropdown-item">
-            <div class="d-flex align-items-center">
+            <div 
+              class="d-flex align-items-center"
+              @click="changeLanguage('cn')"
+            >
               <div class="flex-shrink-0">
                 <img
                   src="@/assets/images/cn.svg"
@@ -38,7 +44,7 @@
                 />
               </div>
               <div class="flex-grow-1 ms-2">
-                <span class="text-secondary fw-medium fs-14">China</span>
+                <span class="text-secondary fw-medium fs-14">{{ $t('chinese') }}</span>
               </div>
             </div>
           </a>
@@ -51,5 +57,10 @@
 <script>
 export default {
   name: "LanguageMenu",
+  methods: {
+    changeLanguage(lang) {
+      this.$i18n.locale = lang
+    }
+  }
 };
 </script>

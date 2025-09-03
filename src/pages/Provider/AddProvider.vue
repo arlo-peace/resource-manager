@@ -1,28 +1,38 @@
 <template>
-  <div class="modal fade" id="addRoleModal" tabindex="-1" aria-labelledby="addRoleModal" aria-hidden="true">
+  <div class="modal fade" id="addProviderModal" tabindex="-1" aria-labelledby="addProviderModal" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="addRoleModal">{{$t('createrole')}}</h1>
+          <h1 class="modal-title fs-5" id="addProviderModal">{{ $t('createprovider') }}</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form>
             <div class="form-group mb-4">
-              <label class="label">{{$t('rolename')}}</label>
+              <label class="label">{{ $t('name') }}</label>
               <input
                 type="text"
                 class="form-control text-dark"
-                :placeholder="$t('rolename')"
+                :placeholder="$t('name')"
               />
             </div>
             <div class="form-group mb-4">
-              <label class="label">{{$t('note')}}</label>
-              <textarea
-                class="form-control text-dark" 
-                name=""
-                :placeholder="$t('note')"
-                rows="5"></textarea>
+              <label class="label">{{ $t('type') }}</label>
+              <select
+                class="form-select form-control text-dark"
+                aria-label="Default select example"
+              >
+                <option value="1" selected>Active</option>
+                <option value="2">Closed</option>
+              </select>
+            </div>
+            <div class="form-group mb-4">
+              <label class="label">{{ $t('website') }}</label>
+              <input
+                type="text"
+                class="form-control text-dark"
+                :placeholder="$t('website')"
+              />
             </div>
 
             <div class="form-group d-flex gap-3">
@@ -31,7 +41,7 @@
               >
                 <span class="py-sm-1 d-block">
                   <i class="ri-add-line text-white me-1"></i>
-                  <span>{{$t('createrole')}}</span>
+                  <span>{{ $t('createprovider') }}</span>
                 </span>
               </button>
             </div>
@@ -50,6 +60,6 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "AddRoleModal",
+  name: "AddProvider",
 });
 </script>
