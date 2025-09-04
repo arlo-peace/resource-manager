@@ -13445,7 +13445,28 @@ h6,
 .dark-theme .modal-content {
   background-color: #0c1427;
 }
-
+.info-popover{
+  --bs-popover-max-width: 200px;
+  --bs-popover-border-color: var(--bs-primary);
+  --bs-popover-header-bg: var(--bs-primary);
+  --bs-popover-header-color: var(--bs-white);
+  --bs-popover-body-padding-x: 1rem;
+  --bs-popover-body-padding-y: .5rem;
+  --bs-popover-header-font-size: .8.5rem;
+}
+.dark-theme .info-popover{
+  --bs-popover-max-width: 200px;
+  --bs-popover-border-color: var(--bs-secondary-50);
+  --bs-popover-bg: var(--bs-secondary-50);
+  --bs-popover-header-bg: #0c1427;
+  --bs-popover-header-color: var(--bs-white);
+  --bs-popover-body-padding-x: 1rem;
+  --bs-popover-body-padding-y: .5rem;
+}
+.dark-theme .stats-box .count{
+  border-color: #15203c;
+  background-color: #15203c;
+}
 /* Only Sidebar dark Area Style
 ============================================*/
 .sidebar-dark .sidebar-burger-menu svg {

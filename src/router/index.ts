@@ -17,6 +17,8 @@ import AccountSettingsPage from "@/pages/Settings/AccountSettingsPage.vue";
 import ChangePasswordPage from "@/pages/Settings/ChangePasswordPage.vue";
 import ProviderPage from "@/pages/Provider/ProviderPage.vue";
 import ProviderInfoPage from "@/pages/Provider/ProviderInfoPage.vue";
+import ServerAddPage from "@/pages/Server/ServerAddPage.vue";
+import ErrorPage from "@/pages/ErrorPage.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -43,6 +45,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/server",
     name: "ServerPage",
     component: ServerPage
+  },
+  {
+    path: "/server/add",
+    name: "ServerAddPage",
+    component: ServerAddPage
   },
   {
     path: "/userlist",
@@ -98,7 +105,10 @@ const routes: Array<RouteRecordRaw> = [
     path: "/providerinfo",
     name: "ProviderInfoPage",
     component: ProviderInfoPage
-  }
+  },
+
+  // Error Page
+  { path: "/:pathMatch(.*)*", name: "NotFound", component: ErrorPage }
 ]
 
 const router = createRouter({
