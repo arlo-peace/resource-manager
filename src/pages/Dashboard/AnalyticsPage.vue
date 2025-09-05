@@ -1,13 +1,18 @@
 <template>
-    <div>
-        Analysis
+    <div class="main-content-container overflow-hidden">
+        <p>Analysis</p>
     </div>
 </template>
 
-<script>
-    export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+    name: "DashboardPage",
+    components: {
         
     }
+})
 </script>
 
 <style scoped>

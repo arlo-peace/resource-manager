@@ -81,21 +81,36 @@
         </li>
 
         <li>
-          <RouterLink
+          <button
             class="dropdown-item d-flex align-items-center text-body"
-            to="/login"
+            @click="logOut"
           >
             <i class="material-symbols-outlined">logout</i>
             <span class="ms-2">{{ $t('logout') }}</span>
-          </RouterLink>
+          </button>
         </li>
       </ul>
     </div>
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { useAuthStore } from '@/stores/auth';
+import { defineComponent } from 'vue';
+
+export default defineComponent({
   name: "AdminProfile",
-};
+  setup(props, ctx) {
+    const auth = useAuthStore();
+
+    const logOut = () => {
+      auth.logout();
+    }
+
+    return {
+      auth,
+      logOut
+    }
+  },
+});
 </script>

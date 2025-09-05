@@ -5,22 +5,20 @@
       </div>
       <div class="col-lg-6">
         <div class="mw-480 ms-lg-auto">
-          <div class="d-inline-block mb-4">
-            <img
-              src="@/assets/images/logo.svg"
-              class="rounded-3 for-light-logo"
-              alt="login"
-            />
-          </div>
           <h3 class="fs-28 mb-2">{{$t('wbtm')}}</h3>
-          <form>
+          <form @submit.prevent="handleSubmit" :class="{ 'was-validated': submitted }" novalidate>
             <div class="form-group mb-4">
               <label class="label text-secondary">{{$t('username')}}</label>
               <input
-                type="username"
+                type="text"
                 class="form-control h-55"
-                placeholder="example@trezo.com"
+                :placeholder="$t('username')"
+                v-model="susername"
+                required
               />
+              <div class="invalid-feedback">
+                Please type username.
+              </div>
             </div>
             <div class="form-group mb-4">
               <label class="label text-secondary">{{$t('password')}}</label>
@@ -28,19 +26,15 @@
                 type="password"
                 class="form-control h-55"
                 :placeholder="$t('password')"
+                v-model="spassword"
+                required
               />
+              <div class="invalid-feedback">
+                Please type password.
+              </div>
             </div>
-            <!-- <div class="form-group mb-4">
-              <RouterLink
-                to="/authentication/forget-password"
-                class="text-decoration-none text-primary fw-semibold"
-              >
-                Forgot Password?
-              </RouterLink>
-            </div> -->
             <div class="form-group mb-4">
-              <RouterLink
-                to="/dashboard"
+              <button
                 class="btn btn-primary fw-medium py-2 px-3 w-100"
               >
                 <div
@@ -51,19 +45,8 @@
                   </i>
                   <span>{{$t('login')}}</span>
                 </div>
-              </RouterLink>
+              </button>
             </div>
-            <!-- <div class="form-group">
-              <p>
-                Don’t have an account.
-                <RouterLink
-                  to="/authentication/register"
-                  class="fw-medium text-primary text-decoration-none"
-                >
-                  Register
-                </RouterLink>
-              </p>
-            </div> -->
           </form>
         </div>
       </div>
@@ -72,12 +55,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, onBeforeUnmount } from "vue";
+import { useAlertStore } from "@/stores/alert";
+import { useAuthStore } from "@/stores/auth";
+import { defineComponent, onMounted, ref, onBeforeUnmount } from "vue";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   name: "LoginPage",
 
   setup() {
+    const router = useRouter();
+    const auth = useAuthStore();
+    const alert = useAlertStore();
+
+    const susername = ref("");
+    const spassword = ref("");
+    const submitted = ref(false);
+
     onMounted(() => {
       document.body.classList.add("bg-white");
     });
@@ -85,6 +79,24 @@ export default defineComponent({
     onBeforeUnmount(() => {
       document.body.classList.remove("bg-white");
     });
+
+    const handleSubmit = () => {
+      if (susername.value === "admin" && spassword.value === "123456") {
+        auth.login(susername.value, spassword.value);
+      } else {
+        submitted.value = true
+        alert.showAlert("Login error", "danger")
+      }
+    }
+
+    return {
+      alert,
+      submitted,
+      auth,
+      susername,
+      spassword,
+      handleSubmit
+    }
   },
 });
 </script>

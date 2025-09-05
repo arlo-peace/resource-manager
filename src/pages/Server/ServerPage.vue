@@ -37,20 +37,19 @@
                       <thead>
                       <tr>
                           <th width="100" scope="col">
-                          <div class="form-check">
-                              <label
+                            <label
                               class="position-relative top-2 ms-1"
                               for="flexCheckDefault7"
                               >
                               ID
-                              </label>
-                          </div>
+                            </label>
                           </th>
                           <th scope="col">{{$t('name')}}</th>
                           <th scope="col">{{$t('hostname')}}</th>
                           <th scope="col">{{$t('publicip')}}</th>
                           <th scope="col">{{$t('type')}}</th>
                           <th scope="col">{{$t('osinfo')}}</th>
+                          <th scope="col">{{$t('price')}}</th>
                           <th scope="col">{{$t('purchasedate')}}</th>
                           <th scope="col">{{$t('expiredat')}}</th>
                           <th scope="col">{{$t('billingcycle')}}</th>
@@ -61,14 +60,12 @@
                       <tbody>
                       <tr v-for="item in filteredItems" :key="item.id">
                           <td class="text-body">
-                          <div class="form-check">
-                              <label
+                            <label
                               class="position-relative top-2 ms-1"
                               for="flexCheckDefault12"
                               >
                               {{ item.id }}
-                              </label>
-                          </div>
+                            </label>
                           </td>
                           <td>
                           {{ item.role }}
@@ -81,6 +78,7 @@
                               type="button" 
                               class="btn btn-sm btn-info"
                               data-bs-custom-class="info-popover"
+                              data-bs-trigger="focus"
                               data-bs-toggle="popover" 
                               data-bs-title="OS Info"
                               data-bs-html="true"
@@ -88,33 +86,48 @@
                               <i class="ri-information-line"></i>
                             </button>
                           </td>
+                          <td>
+                            1000 <span class="fs-12 fw-bold text-white">USDT</span>
+                          </td>
                           <td>{{ item.note }}</td>
                           <td>{{ item.note }}</td>
                           <td>{{ item.note }}</td>
                           <td>{{ item.note }}</td>
                           <td>
-                          <div class="d-flex align-items-center gap-1">
-                              <button
-                              class="ps-0 border-0 bg-transparent lh-1 position-relative top-2"
-                              >
-                              <i class="material-symbols-outlined fs-16 text-primary">
-                                  {{ item.action.view }}
-                              </i>
+                            <div class="d-flex align-items-center gap-1">
+                              <div class="dropdown dropstart">
+                              <button class="btn btn-outline-primary btn-sm action-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="ri-more-2-fill"></i>
                               </button>
-                              <button
-                              class="ps-0 border-0 bg-transparent lh-1 position-relative top-2"
-                              >
-                              <i class="material-symbols-outlined fs-16 text-body">
-                                  {{ item.action.edit }}
-                              </i>
-                              </button>
-                              <button
-                              class="ps-0 border-0 bg-transparent lh-1 position-relative top-2"
-                              >
-                              <i class="material-symbols-outlined fs-16 text-danger">
-                                  {{ item.action.delete }}
-                              </i>
-                              </button>
+                              <ul class="dropdown-menu border-0 bg-white dropdown-menu-end">
+                                <li>
+                                  <span class="dropdown-item" role="button"><i class="ri-eye-line text-primary"></i> {{ $t('view') }}</span>
+                                </li>
+                                <li>
+                                  <RouterLink to="/domain/add" class="dropdown-item"><i class="ri-edit-box-line text-info"></i> {{ $t('edit') }}</RouterLink>
+                                </li>
+                                <li>
+                                  <span 
+                                    class="dropdown-item" 
+                                    role="button"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#serverrenewModal"
+                                    aria-controls="serverrenewModal"
+                                    @click="showRenew(item)"
+                                  >
+                                    <i class="ri-edit-line text-secondary"></i> {{ $t('renew') }}
+                                  </span>
+                                </li>
+                                <li>
+                                  <span 
+                                    class="dropdown-item" role="button"
+                                    @click="handleDelete(item)"
+                                  >
+                                    <i class="ri-delete-bin-6-line text-danger"></i> {{ $t('delete') }}
+                                  </span>
+                                </li>
+                              </ul>
+                            </div>
                           </div>
                           </td>
                       </tr>
@@ -129,6 +142,7 @@
               </div>
           </div>
       </div>
+      <ServerRenewForm :server="selectedServer"/>
     </div>
 </template>
 
@@ -138,15 +152,22 @@ import { Popover } from "bootstrap";
 import PageTitle from "@/components/Commons/PageTitle.vue";
 import Pagination from "@/components/Commons/Pagination.vue";
 import RevenueGrowthChart from "@/components/Widgets/RevenueGrowthChart.vue";
+import { useI18n } from "vue-i18n";
+import Swal from "sweetalert2";
+import ServerRenewForm from "./ServerRenewForm.vue";
 
 export default defineComponent({
-  name: "DomainPage",
+  name: "SeverPage",
   components: {
     PageTitle,
     Pagination,
-    RevenueGrowthChart
+    RevenueGrowthChart,
+    ServerRenewForm
   },
   setup() {
+
+    const { t, locale } = useI18n()
+    const selectedServer = ref<any>(null);
 
     onMounted(() => {
       // initialize Bootstrap tooltips
@@ -210,11 +231,34 @@ export default defineComponent({
       };
     };
 
+    const showRenew = (item: any) => {
+      selectedServer.value = item
+    }
+
+    const handleDelete = (item: any) => {
+      Swal.fire({
+        title: t('delete'),
+        text: t('aystd'),
+        icon: 'question',
+        showCancelButton: true,
+        cancelButtonText: t('cancel'),
+        confirmButtonText: t('yes')
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          Swal.fire(t('deleted'), "", "success");
+        }
+      });
+    }
+
     return {
       items,
+      selectedServer,
       searchTerm,
       filteredItems,
       computeClass,
+      showRenew,
+      handleDelete
     };
   },
 })

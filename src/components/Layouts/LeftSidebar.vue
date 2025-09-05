@@ -3,9 +3,9 @@
     <div class="logo position-relative">
       <RouterLink
         to="/"
-        class="d-block text-decoration-none position-relative"
+        class="d-flex align-items-center text-decoration-none position-relative"
       >
-        <img src="@/assets/images/logo-icon.png" alt="logo-icon" />
+        <img src="@/assets/images/logo.svg" width="26" alt="logo-icon" />
         <span class="logo-text fw-bold text-dark">{{ $t('sitetitle') }}</span>
       </RouterLink>
       <button
@@ -46,7 +46,7 @@
             <span class="title">{{ $t('domain') }}</span>
           </RouterLink>
         </li>
-        <li class="menu-item">
+        <!-- <li class="menu-item">
           <RouterLink to="/ssl" class="menu-link">
             <span class="material-symbols-outlined menu-icon">
               domain_verification
@@ -69,7 +69,7 @@
             </span>
             <span class="title">{{ $t('othersource') }}</span>
           </RouterLink>
-        </li>
+        </li> -->
 
         <li class="menu-title small text-uppercase">
           <span class="menu-title-text">{{ $t('finance') }}</span>
@@ -83,15 +83,7 @@
           </RouterLink>
         </li>
         <li class="menu-item">
-          <RouterLink to="/spend" class="menu-link">
-            <span class="material-symbols-outlined menu-icon">
-              money
-            </span>
-            <span class="title">{{ $t('income') }}</span>
-          </RouterLink>
-        </li>
-        <li class="menu-item">
-          <RouterLink to="/spend" class="menu-link">
+          <RouterLink to="/expend" class="menu-link">
             <span class="material-symbols-outlined menu-icon">
               money_off
             </span>
@@ -195,14 +187,23 @@
           <span class="menu-title-text">{{ $t('others') }}</span>
         </li>
 
-        <!-- <li class="menu-item">
-          <RouterLink to="/my-profile" class="menu-link">
+        <li class="menu-item">
+          <RouterLink to="/notification" class="menu-link">
             <span class="material-symbols-outlined menu-icon">
-              account_circle
+              notifications
             </span>
-            <span class="title">My Profile</span>
+            <span class="title">{{ $t('notifications') }}</span>
           </RouterLink>
-        </li> -->
+        </li>
+
+        <li class="menu-item">
+          <RouterLink to="/foodprint" class="menu-link">
+            <span class="material-symbols-outlined menu-icon">
+              timeline
+            </span>
+            <span class="title">{{ $t('foodprint') }}</span>
+          </RouterLink>
+        </li>
 
         <li class="menu-item" :class="{ open: isOpen('settings') }">
           <a
@@ -243,6 +244,7 @@ import { defineComponent, ref, onMounted } from "vue";
 import feather from "feather-icons";
 import stateStore from "@/utils/store";
 import { useRouter } from "vue-router";
+import { useAuthStore } from "@/stores/auth";
 
 export default defineComponent({
   name: "LeftSidebar",
@@ -250,6 +252,7 @@ export default defineComponent({
     const stateStoreInstance = stateStore;
 
     const router = useRouter();
+    const auth = useAuthStore();
 
     // Reactive state to track which menu items are open
     const openMenu = ref(null);
@@ -266,12 +269,7 @@ export default defineComponent({
     };
 
     const logOut = () => {
-      // clanup data
-      // localStorage.removeItem("authToken");
-      // sessionStorage.clear();
-      // stateStoreInstance.reset?.();
-      
-      router.replace("/login");
+      auth.logout();
     };
 
     onMounted(() => {

@@ -12291,6 +12291,11 @@ h6,
   color: #8695aa;
   border-color: #172036;
 }
+.dark-theme .default-table-area .table-responsive .table tbody tr th {
+  background-color: transparent;
+  color: #ffffff;
+  border-color: #172036;
+}
 .dark-theme .default-table-area .table-responsive .table tbody tr td a h6 {
   color: #ffffff;
 }
@@ -13467,6 +13472,36 @@ h6,
   border-color: #15203c;
   background-color: #15203c;
 }
+.dark-theme .dropdown-menu{
+  background-color: #0a0e19 !important;
+}
+.dark-theme .dropdown-item{
+  color: #8695aa;
+}
+.dropdown-menu li .dropdown-item:hover{
+  background-color: transparent !important;
+  color: #c7c7c7 !important;
+}
+/* .dropdown-menu .dropdown-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0px;
+    width: 2px;
+    height: 100%;
+    background-color: #605dff;
+    transform: scaleY(0);
+    transition: all ease 0.5s;
+}
+.dropdown-menu .dropdown-item:hover::before {
+    transform: scaleY(1);
+} */
+
+.action-btn{    
+  font-weight: 600;
+  padding: 3px 5px;
+  /* transform: rotate(90deg); */
+}
 /* Only Sidebar dark Area Style
 ============================================*/
 .sidebar-dark .sidebar-burger-menu svg {
@@ -14191,6 +14226,20 @@ h6,
   opacity: 100%;
 }
 
+.search-box .form-floating > label.form-select-label {
+  padding-left: 13px;
+}
+.notification-content{
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background-color: transparent;
+  margin: 0;
+}
+.btn.notification-content:first-child:active {
+  border-color: transparent;
+}
 /* Max width 767px */
 @media only screen and (max-width: 767px) {
   .ptb-150 {

@@ -1,9 +1,44 @@
 <template>
   <div class="main-content-container overflow-hidden">
-    <PageTitle :pageTitle="$t('notifications')" />
+    <PageTitle :pageTitle="$t('foodprint')" />
 
     <div class="card bg-white border-0 rounded-3 mb-4">
-      <div class="card-body p-4">
+      <div class="card-body p-0">
+        <div
+            class="d-flex justify-content-between align-items-center flex-wrap gap-2 p-4"
+        >
+          <div class="d-flex search-box">
+              <div class="form-floating">
+                  <select class="form-select" aria-label="Default select example">
+                      <option selected>{{$t('asserttype')}}</option>
+                      <option value="domain">{{$t('domain')}}</option>
+                      <option value="server">{{$t('server')}}</option>
+                      <option value="bt_panel">{{$t('bt_panel')}}</option>
+                  </select> 
+                  <label class="form-select-label">{{$t('asserttype')}}</label>
+              </div>
+              <div class="form-floating ms-3">
+                  <select class="form-select" aria-label="Default select example">
+                      <option selected>{{$t('action')}}</option>
+                      <option value="create">{{$t('create')}}</option>
+                      <option value="update">{{$t('update')}}</option>
+                      <option value="delete">{{$t('delete')}}</option>
+                      <option value="link">{{$t('link')}}</option>
+                      <option value="unlink">{{$t('unlink')}}</option>
+                  </select> 
+                  <label class="form-select-label">{{$t('action')}}</label>
+              </div>
+              <div class="form-floating ms-3">
+                  <input type="date" id="startdate" placeholder="" class="form-control">
+                  <label for="startdate">{{$t('startdate')}}</label>
+              </div>
+              <div class="form-floating ms-3">
+                  <input type="date" id="enddate" placeholder="" class="form-control">
+                  <label for="enddate">{{$t('enddate')}}</label>
+              </div>
+            </div>
+        </div>
+
         <div class="default-table-area style-two default-table-width">
           <div class="table-responsive">
             <table class="table align-middle">
@@ -11,10 +46,8 @@
                 <tr>
                   <th scope="col">ID</th>
                   <th scope="col">{{ $t('timestamp') }}</th>
-                  <th scope="col">{{ $t('resource') }}</th>
                   <th scope="col">{{ $t('type') }}</th>
-                  <th scope="col">{{ $t('message') }}</th>
-                  <th scope="col">{{ $t('serverity') }}</th>
+                  <th scope="col">{{ $t('actionby') }}</th>
                   <th scope="col">{{ $t('status') }}</th>
                   <th scope="col">{{ $t('action') }}</th>
                 </tr>
@@ -31,64 +64,28 @@
                     {{ item.type }}
                   </td>
                   <td class="text-secondary fw-medium">
-                    {{ item.type }}
-                  </td>
-                  <td class="text-secondary fw-medium">
-                    <button 
-                      type="button" 
-                      data-bs-custom-class="info-popover"
-                      data-bs-toggle="popover"
-                      data-bs-trigger="hover"
-                      :data-bs-content="item.content"
-                      role="button" class="btn notification-content">{{ item.content }}</button>
-                  </td>
-                  <td class="text-secondary fw-medium">
-                    <span 
-                      class="badge pill-badge rounded-pill"
-                      :class="severityClass(item.severity)"
-                    >
-                      {{ $t(item.severity) }}
-                    </span>
-                  </td>
-                  <td class="d-flex">
-                    <span
-                      class="badge bg-primary bg-opacity-10 text-primary p-2 fs-12 fw-normal"
-                      :class="computeClass(item.status)"
-                    >
-                      {{ item.status }}
-                    </span>
-                    <div 
-                      data-bs-toggle="tooltip" 
-                      data-bs-placement="top" 
-                      :data-bs-title="$t('changestatus')"
-                      class="dropdown dropstart ms-2">
-                      <button class="btn btn-outline-primary btn-sm action-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="ri-more-2-fill"></i>
-                      </button>
-                      <ul class="dropdown-menu border-0 bg-white dropdown-menu-end">
-                        <li>
-                          <span class="dropdown-item" role="button">{{ $t('ack') }}</span>
-                        </li>
-                        <li>
-                          <span class="dropdown-item" role="button">{{ $t('resolved') }}</span>
-                        </li>
-                        <li>
-                          <span class="dropdown-item" role="button">{{ $t('ignored') }}</span>
-                        </li>
-                      </ul>
-                    </div>
+                    {{ item.content }}
                   </td>
                   <td>
-                    <div class="d-flex align-items-center gap-3">
-                      <button
+                    <span
+                      class="badge pill-badge text-bg-success"
+                      :class="computeClass(item.status)"
+                    >
+                      {{ $t(item.status) }}
+                    </span>
+                  </td>
+                  <td class="text-center">
+                    <button
+                        @click="handleDetails(item)"
                         class="ps-0 border-0 bg-transparent lh-1 position-relative top-2"
-                        @click="handleDelete"
+                        data-bs-toggle="modal"
+                        data-bs-target="#viewFoodprintModal"
+                        aria-controls="viewFoodprintModal"
                       >
-                        <i class="material-symbols-outlined fs-16 text-danger">
-                          delete
+                        <i class="material-symbols-outlined fs-16 text-primary">
+                          visibility
                         </i>
-                      </button>
-                    </div>
+                    </button>
                   </td>
                 </tr>
               </tbody>
@@ -99,52 +96,33 @@
         </div>
       </div>
     </div>
+    <FoodprintView :details="details"/>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from "vue";
+import { defineComponent, ref } from "vue";
 import PageTitle from "@/components/Commons/PageTitle.vue";
 import Pagination from "@/components/Commons/Pagination.vue";
-import Swal from "sweetalert2";
-import { useI18n } from "vue-i18n";
-import { Popover, Tooltip } from "bootstrap";
+import FoodprintView from "./FoodprintView.vue";
 
 export default defineComponent({
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Notification",
   components:{
     Pagination,
+    FoodprintView,
     PageTitle
   },
   setup() {
-    const { t, locale } = useI18n();
-
-    onMounted(() => {
-      // initialize
-      const popoverTriggerList = document.querySelectorAll(
-        '[data-bs-toggle="popover"]'
-      );
-      popoverTriggerList.forEach((el) => {
-        new Popover(el);
-      });
-
-      const tooltipTriggerList = document.querySelectorAll(
-        '[data-bs-toggle="tooltip"]'
-      );
-      tooltipTriggerList.forEach((el) => {
-        new Tooltip(el);
-      });
-    });
-
+    const details = ref();
     const items = ref([
       {
         id: "#JAN-854",
         timestamp: "01 Dec 2024 09:30 AM",
         type: "Information",
         content: "New software update available. Click here to download.",
-        status: "Unread",
-        severity: "low",
+        status: "create",
         action: {
           view: "visibility",
         },
@@ -155,8 +133,7 @@ export default defineComponent({
         type: "Alert",
         content:
           "Urgent: Server maintenance scheduled for tomorrow at 10:00 PM.",
-        status: "Read",
-        severity: "medium",
+        status: "update",
         action: {
           view: "visibility",
         },
@@ -167,8 +144,7 @@ export default defineComponent({
         type: "Announcement",
         content:
           "Welcome to our new team member, Jane Smith, as Head of Sales.",
-        status: "Read",
-        severity: "high",
+        status: "delete",
         action: {
           view: "visibility",
         },
@@ -179,8 +155,7 @@ export default defineComponent({
         type: "Information",
         content:
           "Check out our latest blog post for tips on improving efficiency.",
-        status: "Read",
-        severity: "critical",
+        status: "link",
         action: {
           view: "visibility",
         },
@@ -190,8 +165,7 @@ export default defineComponent({
         timestamp: "26 Nov 2024 09:30 AM",
         type: "Alert",
         content: "Attention: Upcoming webinar on cybersecurity best practices.",
-        status: "Unread",
-        severity: "low",
+        status: "unlink",
         action: {
           view: "visibility",
         },
@@ -202,7 +176,6 @@ export default defineComponent({
         type: "Announcement",
         content: "Happy Thanksgiving! Our office will be closed on Nov 30.",
         status: "Read",
-        severity: "low",
         action: {
           view: "visibility",
         },
@@ -213,7 +186,6 @@ export default defineComponent({
         type: "Information",
         content: "Year-end financial reports are now available for download.",
         status: "Read",
-        severity: "low",
         action: {
           view: "visibility",
         },
@@ -224,7 +196,6 @@ export default defineComponent({
         type: "Announcement",
         content: "Critical security update. Update your passwords immediately.",
         status: "Read",
-        severity: "low",
         action: {
           view: "visibility",
         },
@@ -235,7 +206,6 @@ export default defineComponent({
         type: "Information",
         content: "Holiday Office Party on Dec 20. Save the date!",
         status: "Read",
-        severity: "low",
         action: {
           view: "visibility",
         },
@@ -246,53 +216,32 @@ export default defineComponent({
         type: "Alert",
         content: "Year-end sale: Up to 20% off on selected products.",
         status: "Read",
-        severity: "low",
         action: {
           view: "visibility",
         },
       },
     ]);
 
-    const wordRead = ref("Read");
-    const wordUnread = ref("Unread");
-
     const computeClass = (classValue: string) => {
       return {
-        read: wordRead.value === classValue,
-        cancelled: wordUnread.value === classValue,
+        'text-bg-primary': 'create' === classValue,
+        'text-bg-info': 'update' === classValue,
+        'text-bg-danger': 'delete' === classValue,
+        'text-bg-success': 'transfer' === classValue,
+        'text-bg-secondary': 'link' === classValue,
+        'text-bg-warning': 'unlink' === classValue,
       };
     };
 
-    const severityClass = (classValue: string) => {
-      return {
-        'text-outline-info': 'low' === classValue,
-        'text-outline-secondary': 'medium' === classValue,
-        'text-outline-warning': 'high' === classValue,
-        'text-outline-danger': 'critical' === classValue,
-      }
-    }
-
-    const handleDelete = (item: any) => {
-      Swal.fire({
-        title: t('delete'),
-        text: t('aystd'),
-        icon: 'question',
-        showCancelButton: true,
-        cancelButtonText: t('cancel'),
-        confirmButtonText: t('yes')
-      }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
-          Swal.fire(t('deleted'), "", "success");
-        }
-      });
+    const handleDetails = (item: any) => {
+      details.value = item;
     }
 
     return {
       computeClass,
-      severityClass,
       items,
-      handleDelete,
+      details,
+      handleDetails
     };
   },
 });

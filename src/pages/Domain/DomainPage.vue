@@ -1,167 +1,177 @@
 <template>
     <div class="main-content-container overflow-hidden">
-        <PageTitle pageTitle="Domain List" subTitle="Main" />
-
-        <div class="card bg-white border-0 rounded-3 mb-4">
+        <PageTitle :pageTitle="$t('domainlist')" :subTitle="$t('main')" />
+        
+        <div>
+          <div class="card bg-white border-0 rounded-3 mb-4">
             <div class="card-body p-0">
-            <div
-                class="d-flex justify-content-between align-items-center flex-wrap gap-2 p-4"
-            >
-                <form class="position-relative table-src-form me-0" @submit.prevent>
-                <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Search here"
-                    v-model="searchTerm"
-                />
-                <i
-                    class="material-symbols-outlined position-absolute top-50 start-0 translate-middle-y"
-                >
-                    search
-                </i>
-                </form>
-                <button
-                class="btn btn-outline-primary py-1 px-2 px-sm-4 fs-14 fw-medium rounded-3 hover-bg"
-                data-bs-toggle="modal"
-                data-bs-target="#toDoListModal"
-                aria-controls="toDoListModal"
-                >
-                <span class="py-sm-1 d-block">
-                    <i class="ri-add-line d-none d-sm-inline-block me-1"></i>
-                    <span>Add New</span>
-                </span>
-                </button>
-            </div>
+              <div
+                  class="d-flex justify-content-between align-items-center flex-wrap gap-2 p-4"
+              >
+                  <form class="position-relative table-src-form me-0" @submit.prevent>
+                  <input
+                      type="text"
+                      class="form-control"
+                      :placeholder="$t('searchhere')"
+                      v-model="searchTerm"
+                  />
+                  <i class="material-symbols-outlined position-absolute top-50 start-0 translate-middle-y">
+                      search
+                  </i>
+                  </form>
+                  <RouterLink to="/domain/add" class="menu-link">
+                  <button
+                      class="btn btn-outline-primary py-1 px-2 px-sm-4 fs-14 fw-medium rounded-3 hover-bg"
+                  >
+                  <span class="py-sm-1 d-block">
+                      <i class="ri-add-line d-none d-sm-inline-block me-1"></i>
+                      <span>{{ $t('addnew') }}</span>
+                  </span>
+                  </button>
+                  </RouterLink>
+              </div>
 
-            <div class="default-table-area style-two default-table-width">
-                <div class="table-responsive">
-                <table class="table align-middle">
-                    <thead>
-                    <tr>
-                        <th scope="col">
-                        <div class="form-check">
-                            <input
-                            class="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="flexCheckDefault7"
-                            />
-                            <label
-                            class="position-relative top-2 ms-1"
-                            for="flexCheckDefault7"
-                            >
-                            ID
-                            </label>
-                        </div>
-                        </th>
-                        <th scope="col">Task Title</th>
-                        <th scope="col">Assigned To</th>
-                        <th scope="col">Due Date</th>
-                        <th scope="col">Priority</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr v-for="item in filteredItems" :key="item.id">
-                        <td class="text-body">
-                        <div class="form-check">
-                            <input
-                            class="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="flexCheckDefault12"
-                            />
-                            <label
-                            class="position-relative top-2 ms-1"
-                            for="flexCheckDefault12"
-                            >
-                            {{ item.id }}
-                            </label>
-                        </div>
-                        </td>
-                        <td>
-                        <RouterLink
-                            to="/project-management/project-overview"
-                            class="text-body"
-                        >
-                            {{ item.taskTitle }}
-                        </RouterLink>
-                        </td>
-                        <td>{{ item.assignedTo }}</td>
-                        <td class="text-body">{{ item.dueDate }}</td>
-                        <td class="text-body">{{ item.priority }}</td>
-                        <td>
-                        <span
-                            class="badge bg-opacity-10 p-2 fs-12 fw-normal"
-                            :class="computeClass(item.status)"
-                        >
-                            {{ item.status }}
-                        </span>
-                        </td>
+              <div class="default-table-area style-two default-table-width">
+                  <div class="table-responsive">
+                  <table class="table align-middle">
+                      <thead>
+                      <tr>
+                          <th width="100" scope="col">
+                          <div class="form-check">
+                              <label
+                              class="position-relative top-2 ms-1"
+                              for="flexCheckDefault7"
+                              >
+                              ID
+                              </label>
+                          </div>
+                          </th>
+                          <th scope="col">{{$t('name')}}</th>
+                          <th scope="col">{{$t('program')}}</th>
+                          <th scope="col">{{$t('template')}}</th>
+                          <th scope="col">{{$t('price')}}</th>
+                          <th scope="col">{{$t('registerat')}}</th>
+                          <th scope="col">{{$t('expireat')}}</th>
+                          <th scope="col">{{$t('regorg')}}</th>
+                          <th scope="col">{{$t('lockstate')}}</th>
+                          <th scope="col">{{$t('status')}}</th>
+                          <th width="60" scope="col">{{$t('action')}}</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr v-for="item in filteredItems" :key="item.id">
+                          <td class="text-body">
+                          <div class="form-check">
+                              <label
+                              class="position-relative top-2 ms-1"
+                              for="flexCheckDefault12"
+                              >
+                              {{ item.id }}
+                              </label>
+                          </div>
+                          </td>
+                          <td>
+                          {{ item.role }}
+                          </td>
+                          <td>{{ item.note }}</td>
+                          <td>{{ item.note }}</td>
+                          <td>
+                            1000 <span class="fs-12 fw-bold text-white">USDT</span>
+                          </td>
+                          <td>{{ item.note }}</td>
+                          <td>{{ item.note }}</td>
+                          <td>{{ item.note }}</td>
+                          <td>{{ item.note }}</td>
+                          <td>{{ item.note }}</td>
+                          <td>
+                          <div class="dropdown dropstart">
+                            <button class="btn btn-outline-primary btn-sm action-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              <i class="ri-more-2-fill"></i>
+                            </button>
+                            <ul class="dropdown-menu border-0 bg-white dropdown-menu-end">
+                              <li>
+                                <span class="dropdown-item" role="button"><i class="ri-eye-line text-primary"></i> {{ $t('view') }}</span>
+                              </li>
+                              <li>
+                                <RouterLink to="/domain/add" class="dropdown-item"><i class="ri-edit-box-line text-info"></i> {{ $t('edit') }}</RouterLink>
+                              </li>
+                              <li>
+                                <span 
+                                  class="dropdown-item" 
+                                  role="button"
+                                  data-bs-toggle="modal"
+                                  data-bs-target="#renewmodal"
+                                  aria-controls="renewmodal"
+                                  @click="showRenew(item)"
+                                >
+                                  <i class="ri-edit-line text-secondary"></i> {{ $t('renew') }}
+                                </span>
+                              </li>
+                              <li>
+                                <span 
+                                  class="dropdown-item" role="button"
+                                  @click="handleDelete(item)"
+                                >
+                                  <i class="ri-delete-bin-6-line text-danger"></i> {{ $t('delete') }}
+                                </span>
+                              </li>
+                            </ul>
+                          </div>
+                          </td>
+                      </tr>
+                      </tbody>
+                  </table>
+                  </div>
 
-                        <td>
-                        <div class="d-flex align-items-center gap-1">
-                            <button
-                            class="ps-0 border-0 bg-transparent lh-1 position-relative top-2"
-                            >
-                            <i class="material-symbols-outlined fs-16 text-primary">
-                                {{ item.action.view }}
-                            </i>
-                            </button>
-                            <button
-                            class="ps-0 border-0 bg-transparent lh-1 position-relative top-2"
-                            >
-                            <i class="material-symbols-outlined fs-16 text-body">
-                                {{ item.action.edit }}
-                            </i>
-                            </button>
-                            <button
-                            class="ps-0 border-0 bg-transparent lh-1 position-relative top-2"
-                            >
-                            <i class="material-symbols-outlined fs-16 text-danger">
-                                {{ item.action.delete }}
-                            </i>
-                            </button>
-                        </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                </div>
-
-                <div class="p-4 pt-lg-4">
-                <Pagination :items="5" :total="items.length" />
-                </div>
-            </div>
-            </div>
-        </div>
-        <CreateDomainModal/>
-  </div>
+                  <div class="p-4 pt-lg-4">
+                  <Pagination :items="5" :total="items.length" />
+                  </div>
+              </div>
+              </div>
+          </div>
+      </div>
+      <DomainRenewForm :domain="selectedDomain"/>
+    </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from "vue";
-import PageTitle from "../../components/Commons/PageTitle.vue";
-import Pagination from "../../components/Commons/Pagination.vue"
-import CreateDomainModal from "./CreateDomainModal.vue"
+import { defineComponent, ref, computed, onMounted } from "vue";
+import { Modal, Popover } from "bootstrap";
+import PageTitle from "@/components/Commons/PageTitle.vue";
+import Pagination from "@/components/Commons/Pagination.vue";
+import RevenueGrowthChart from "@/components/Widgets/RevenueGrowthChart.vue";
+import DomainRenewForm from "./DomainRenewForm.vue";
+import Swal from "sweetalert2";
+import { useI18n } from "vue-i18n";
 
 export default defineComponent({
   name: "DomainPage",
   components: {
     PageTitle,
     Pagination,
-    CreateDomainModal,
+    RevenueGrowthChart,
+    DomainRenewForm
   },
   setup() {
+    const { t, locale } = useI18n()
+    const selectedDomain = ref<any>(null);
+
+    onMounted(() => {
+
+      // initialize Bootstrap tooltips
+      const tooltipTriggerList = document.querySelectorAll(
+        '[data-bs-toggle="popover"]'
+      );
+      tooltipTriggerList.forEach((el) => {
+        new Popover(el);
+      });
+    });
+
     const items = ref([
       {
         id: "#854",
-        taskTitle: "Network Infrastructure",
-        assignedTo: "Oliver Clark",
-        dueDate: "30 Apr 2024",
-        priority: "High",
-        status: "Finished",
+        role: "Manager",
+        note: "Oliver Clark",
         action: {
           view: "visibility",
           edit: "edit",
@@ -170,120 +180,13 @@ export default defineComponent({
       },
       {
         id: "#853",
-        taskTitle: "Cloud Migration",
-        assignedTo: "Ethan Baker",
-        dueDate: "25 Apr 2024",
-        priority: "Low",
-        status: "Pending",
+        role: "Admin",
+        note: "Ethan Baker",
         action: {
           view: "visibility",
           edit: "edit",
           delete: "delete",
-        },
-      },
-      {
-        id: "#852",
-        taskTitle: "Website Revamp",
-        assignedTo: "Sophia Carter",
-        dueDate: "20 Apr 2024",
-        priority: "Medium",
-        status: "In Progress",
-        action: {
-          view: "visibility",
-          edit: "edit",
-          delete: "delete",
-        },
-      },
-      {
-        id: "#851",
-        taskTitle: "Mobile Application",
-        assignedTo: "Ava Cooper",
-        dueDate: "15 Apr 2024",
-        priority: "High",
-        status: "Finished",
-        action: {
-          view: "visibility",
-          edit: "edit",
-          delete: "delete",
-        },
-      },
-      {
-        id: "#850",
-        taskTitle: "System Deployment",
-        assignedTo: "Isabella Evans",
-        dueDate: "10 Apr 2024",
-        priority: "Low",
-        status: "Cancelled",
-        action: {
-          view: "visibility",
-          edit: "edit",
-          delete: "delete",
-        },
-      },
-      {
-        id: "#849",
-        taskTitle: "Hotel Management System",
-        assignedTo: "Shawn Kennedy",
-        dueDate: "30 Apr 2024",
-        priority: "High",
-        status: "Finished",
-        action: {
-          view: "visibility",
-          edit: "edit",
-          delete: "delete",
-        },
-      },
-      {
-        id: "#848",
-        taskTitle: "Send Proposal to APR Ltd",
-        assignedTo: "Roberto Cruz",
-        dueDate: "25 Apr 2024",
-        priority: "Low",
-        status: "Pending",
-        action: {
-          view: "visibility",
-          edit: "edit",
-          delete: "delete",
-        },
-      },
-      {
-        id: "#847",
-        taskTitle: "Python Upgrade",
-        assignedTo: "Juli Johnson",
-        dueDate: "20 Apr 2024",
-        priority: "Medium",
-        status: "In Progress",
-        action: {
-          view: "visibility",
-          edit: "edit",
-          delete: "delete",
-        },
-      },
-      {
-        id: "#846",
-        taskTitle: "Schedule meeting with Trezo",
-        assignedTo: "Catalina Engles",
-        dueDate: "15 Apr 2024",
-        priority: "High",
-        status: "Finished",
-        action: {
-          view: "visibility",
-          edit: "edit",
-          delete: "delete",
-        },
-      },
-      {
-        id: "#845",
-        taskTitle: "Engineering Lite Touch",
-        assignedTo: "Louis Nagle",
-        dueDate: "10 Apr 2024",
-        priority: "Low",
-        status: "Cancelled",
-        action: {
-          view: "visibility",
-          edit: "edit",
-          delete: "delete",
-        },
+        }
       },
     ]);
 
@@ -293,49 +196,60 @@ export default defineComponent({
       return items.value.filter(
         (item: {
           id: string;
-          taskTitle: string;
-          assignedTo: string;
-          dueDate: string;
-          priority: string;
-          status: string;
+          role: string;
+          note: string;
         }) =>
           item.id.toLowerCase().includes(searchTerm.value.toLowerCase()) ||
-          item.taskTitle
+          item.role
             .toLowerCase()
             .includes(searchTerm.value.toLowerCase()) ||
-          item.assignedTo
+          item.note
             .toLowerCase()
-            .includes(searchTerm.value.toLowerCase()) ||
-          item.dueDate.toLowerCase().includes(searchTerm.value.toLowerCase()) ||
-          item.priority
-            .toLowerCase()
-            .includes(searchTerm.value.toLowerCase()) ||
-          item.status.toLowerCase().includes(searchTerm.value.toLowerCase())
+            .includes(searchTerm.value.toLowerCase())
       );
     });
 
-    const wordConfirmed = ref("Finished");
-    const wordPending = ref("Pending");
-    const wordInProgress = ref("In Progress");
-    const wordRejected = ref("Cancelled");
+    const wordActive = ref("Active");
+    const wordClose = ref("Close");
 
     const computeClass = (classValue: string) => {
       return {
-        confirmed: wordConfirmed.value === classValue,
-        inProgress: wordInProgress.value === classValue,
-        pending: wordPending.value === classValue,
-        rejected: wordRejected.value === classValue,
+        confirmed: wordActive.value === classValue,
+        rejected: wordClose.value === classValue,
       };
     };
 
+    const showRenew = (item: any) => {
+      selectedDomain.value = item
+    }
+
+    const handleDelete = (item: any) => {
+      Swal.fire({
+        title: t('delete'),
+        text: t('aystd'),
+        icon: 'question',
+        showCancelButton: true,
+        cancelButtonText: t('cancel'),
+        confirmButtonText: t('yes')
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          Swal.fire(t('deleted'), "", "success");
+        }
+      });
+    }
+
     return {
       items,
+      selectedDomain,
       searchTerm,
       filteredItems,
       computeClass,
+      showRenew,
+      handleDelete
     };
   },
-});
+})
 </script>
 
 <style scoped>

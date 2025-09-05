@@ -2,10 +2,11 @@
   <div>
     <Preloader v-if="isLoading" />
     <LeftSidebar v-if="shouldShowSidebar && !isNotFound" />
+    <GlobalAlert />
     <div class="container-fluid">
       <div
         class="main-content d-flex flex-column"
-        :class="{ 'p-0': shouldShowPaddingZero || isNotFound }"
+        :class="{ 'p-0': isNotFound }"
       >
         <TopHeader v-if="shouldShowHeader && !isNotFound" />
         <router-view />
@@ -22,13 +23,15 @@ import stateStore from "./utils/store";
 import Preloader from "./components/Layouts/Preloader.vue";
 import LeftSidebar from "./components/Layouts/LeftSidebar.vue";
 import TopHeader from "./components/Layouts/TopHeader/index.vue";
+import GlobalAlert from "./components/Commons/Alert.vue";
 
 export default defineComponent({
   name: "App",
   components: {
     Preloader,
     LeftSidebar,
-    TopHeader
+    TopHeader,
+    GlobalAlert
   },
   setup() {
     const isLoading = ref(true);

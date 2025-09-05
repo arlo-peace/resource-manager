@@ -29,7 +29,8 @@
               </button>
             </li>
             <li>
-              <SearchFrom />
+              <!-- <SearchFrom /> -->
+               <h5 class="mb-0">Team Name</h5>
             </li>
           </ul>
         </div>
