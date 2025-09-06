@@ -1,10 +1,17 @@
-<template><div class="m-auto m-1230">
+<template>
+  <div class="m-1230">
     <div class="row align-items-center">
       <div class="col-lg-6 d-none d-lg-block">
-        <img src="@/assets/images/login.jpg" class="rounded-3" alt="login" />
+        <img src="@/assets/images/login.jpg" class="rounded-3 vh-100" alt="login" />
       </div>
       <div class="col-lg-6">
-        <div class="mw-480 ms-lg-auto">
+        <div class="col-lg-3 me-lg-auto mb-20">
+          <select class="form-select" v-model="langchange" @change="handleLanguage" aria-label="Language">
+            <option value="en">English</option>
+            <option value="cn">Chinese</option>
+          </select>
+        </div>
+        <div class="mw-480">
           <h3 class="fs-28 mb-2">{{$t('wbtm')}}</h3>
           <form @submit.prevent="handleSubmit" :class="{ 'was-validated': submitted }" novalidate>
             <div class="form-group mb-4">
@@ -57,7 +64,9 @@
 <script lang="ts">
 import { useAlertStore } from "@/stores/alert";
 import { useAuthStore } from "@/stores/auth";
+import { useLocaleStore } from "@/stores/locale";
 import { defineComponent, onMounted, ref, onBeforeUnmount } from "vue";
+import { useI18n } from "vue-i18n";
 import { useRouter } from "vue-router";
 
 export default defineComponent({
@@ -71,6 +80,9 @@ export default defineComponent({
     const susername = ref("");
     const spassword = ref("");
     const submitted = ref(false);
+    const { t, locale } = useI18n()
+    
+    const langchange = ref(locale.value);
 
     onMounted(() => {
       document.body.classList.add("bg-white");
@@ -89,12 +101,20 @@ export default defineComponent({
       }
     }
 
+    const handleLanguage = () => {
+      locale.value = langchange.value
+      const localeStore = useLocaleStore();
+      localeStore.setLocale(langchange.value)
+    }
+
     return {
+      langchange,
       alert,
       submitted,
       auth,
       susername,
       spassword,
+      handleLanguage,
       handleSubmit
     }
   },

@@ -2427,7 +2427,7 @@ Swiper Slider Style
   font-size: 14px;
   color: #3a4252;
   max-width: 450px;
-  whitespace: no-wrap;
+  white-space: no-wrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
