@@ -17,6 +17,7 @@ import i18n from "./i18n/i18n"
 import { createPinia } from "pinia"
 
 import 'sweetalert2/dist/sweetalert2.min.css';
+import { useLocaleStore } from "./stores/locale";
 
 const app =createApp(App)
 const pinia = createPinia()
@@ -25,4 +26,8 @@ app.use(pinia);
 app.use(i18n);
 app.use(VueApexCharts);
 app.use(createBootstrap());
+
+const localeStore = useLocaleStore()
+i18n.global.locale.value = localeStore.locale
+
 app.mount('#app');

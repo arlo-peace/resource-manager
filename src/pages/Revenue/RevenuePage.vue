@@ -2,13 +2,52 @@
     <div class="main-content-container overflow-hidden">
         <page-title :page-title="$t('revenue')" :sub-title="$t('finance')"/>
 
+        <div class="row">
+            <div class="col-lg-3">
+                <StatsCard 
+                    title="earnings"
+                    number="20"
+                    icon="money_bag"
+                    type="success"
+                    badge="100K USDT"
+                />
+            </div>
+            <div class="col-lg-3">
+                <StatsCard 
+                    title="closedeals"
+                    number="50"
+                    icon="money_off"
+                    type="danger"
+                    badge="50K USDT"
+                />
+            </div>
+            <div class="col-lg-3">
+                <StatsCard
+                    title="totalvolume"
+                    number="5"
+                    icon="account_balance"
+                    type="info"
+                    badge="50K USDT"
+                />
+            </div>
+            <div class="col-lg-3">
+                <StatsCard
+                    title="totalserver"
+                    number="2"
+                    icon="host"
+                    type="primary"
+                    badge="1000K USDT"
+                />
+            </div>
+        </div>
+
         <div class="card bg-white border-0 rounded-3 mb-4">
             <div class="card-body p-0">
             <div
                 class="d-flex justify-content-between align-items-center flex-wrap gap-2 p-4"
             >
               <div class="d-flex search-box">
-                <div class="form-floating ms-3">
+                <div class="form-floating">
                     <select class="form-select" aria-label="Default select example">
                         <option selected>{{$t('allteam')}}</option>
                         <option value="1">One</option>
@@ -46,14 +85,14 @@
               </div>
                 
                 <button
-                    class="btn btn-outline-success py-1 px-2 px-sm-4 fs-14 fw-medium rounded-3 hover-bg"
+                    class="btn btn-outline-primary py-1 px-2 px-sm-4 fs-14 fw-medium rounded-3 hover-bg"
                     data-bs-toggle="modal"
-                    data-bs-target="#addnewpurchase"
-                    aria-controls="addnewpurchase"
+                    data-bs-target="#addnewrevenue"
+                    aria-controls="addnewrevenue"
                 >
                 <span class="py-sm-1 d-block">
-                    <i class="ri-printer-fill d-none d-sm-inline-block me-1"></i>
-                    <span>{{$t('print')}}</span>
+                    <i class="ri-add-fill d-none d-sm-inline-block me-1"></i>
+                    <span>{{$t('addnew')}}</span>
                 </span>
                 </button>
             </div>
@@ -76,11 +115,11 @@
                         <th scope="col">{{$t('team')}}</th>
                         <th scope="col">{{$t('type')}}</th>
                         <th scope="col">{{$t('price')}}</th>
-                        <th scope="col">{{$t('billingcycle')}}</th>
+                        <th scope="col">{{$t('source')}}</th>
                         <th scope="col">{{$t('note')}}</th>
-                        <th scope="col">{{$t('purchaseat')}}</th>
-                        <th scope="col">{{$t('expireat')}}</th>
-                        <th scope="col">{{$t('status')}}</th>
+                        <th scope="col">{{$t('startdate')}}</th>
+                        <th scope="col">{{$t('expiredate')}}</th>
+                        <th scope="col">{{$t('action')}}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -136,13 +175,12 @@
                         <td>
                             01-01-2025
                         </td>
-                        <td>
-                        <span
-                            class="badge bg-opacity-10 p-2 fs-12 fw-normal"
-                            :class="computeClass(item.status)"
-                        >
-                            {{ item.status }}
-                        </span>
+                        <td class="text-center">
+                            <button
+                                class="btn btn-outline-primary btn-sm"
+                            >
+                            <i class="ri-edit-box-line"></i> Edit
+                        </button>
                         </td>
                     </tr>
                     </tbody>
@@ -155,6 +193,7 @@
             </div>
             </div>
         </div>
+        <RevenueAddForm />
     </div>
 </template>
 
@@ -163,12 +202,16 @@ import PageTitle from '@/components/Commons/PageTitle.vue';
 import Pagination from '@/components/Commons/Pagination.vue';
 import { Popover } from 'bootstrap';
 import { computed, defineComponent, onMounted, ref } from 'vue';
+import RevenueAddForm from './RevenueAddForm.vue';
+import StatsCard from '@/components/Widgets/Dashboard/StatsCard.vue';
 
 export default defineComponent({
     name: "RevenuePage",
     components: {
         PageTitle,
-        Pagination
+        Pagination,
+        RevenueAddForm,
+        StatsCard
     },
     setup(props, ctx){
 

@@ -1,14 +1,51 @@
 <template>
     <div class="main-content-container overflow-hidden">
         <page-title :page-title="$t('expend')" :sub-title="$t('finance')"/>
-
+        <div class="row">
+            <div class="col-lg-3">
+                <StatsCard 
+                    title="daily"
+                    number="20"
+                    icon="routine"
+                    type="primary"
+                    badge="100K USDT"
+                />
+            </div>
+            <div class="col-lg-3">
+                <StatsCard 
+                    title="weekly"
+                    number="50"
+                    icon="calendar_view_week"
+                    type="success"
+                    badge="50K USDT"
+                />
+            </div>
+            <div class="col-lg-3">
+                <StatsCard
+                    title="monthly"
+                    number="5"
+                    icon="calendar_view_month"
+                    type="warning"
+                    badge="50K USDT"
+                />
+            </div>
+            <div class="col-lg-3">
+                <StatsCard
+                    title="yearly"
+                    number="2"
+                    icon="event_repeat"
+                    type="danger"
+                    badge="1000K USDT"
+                />
+            </div>
+        </div>
         <div class="card bg-white border-0 rounded-3 mb-4">
             <div class="card-body p-0">
             <div
                 class="d-flex justify-content-between align-items-center flex-wrap gap-2 p-4"
             >
               <div class="d-flex search-box">
-                <div class="form-floating ms-3">
+                <div class="form-floating">
                     <select class="form-select" aria-label="Default select example">
                         <option selected>{{$t('allteam')}}</option>
                         <option value="1">One</option>
@@ -81,6 +118,7 @@
                         <th scope="col">{{$t('purchaseat')}}</th>
                         <th scope="col">{{$t('expireat')}}</th>
                         <th scope="col">{{$t('status')}}</th>
+                        <th scope="col">{{$t('action')}}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -144,6 +182,13 @@
                             {{ item.status }}
                         </span>
                         </td>
+                        <td class="text-center">
+                            <button
+                                class="btn btn-outline-primary btn-sm"
+                            >
+                            <i class="ri-edit-box-line"></i> Edit
+                        </button>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -165,13 +210,15 @@ import Pagination from '@/components/Commons/Pagination.vue';
 import { Popover } from 'bootstrap';
 import { computed, defineComponent, onMounted, ref } from 'vue';
 import ExpandAddForm from './ExpandAddForm.vue';
+import StatsCard from '@/components/Widgets/Dashboard/StatsCard.vue';
 
 export default defineComponent({
     name: "ExpandPage",
     components: {
         PageTitle,
         Pagination,
-        ExpandAddForm
+        ExpandAddForm,
+        StatsCard
     },
     setup(props, ctx){
 

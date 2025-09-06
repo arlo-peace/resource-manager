@@ -45,7 +45,7 @@
                 <i class="material-symbols-outlined text-info">person</i>
               </div>
               <div class="flex-grow-1 ms-3">
-                <p>A new user added in Trezo</p>
+                <p>A new user added in User</p>
                 <span class="fs-13">3 hrs ago</span>
               </div>
             </div>
@@ -95,7 +95,7 @@
                 <i class="material-symbols-outlined text-info">person</i>
               </div>
               <div class="flex-grow-1 ms-3">
-                <p>A new user added in Trezo</p>
+                <p>A new user added in User1</p>
                 <span class="fs-13">3 hrs ago</span>
               </div>
             </div>

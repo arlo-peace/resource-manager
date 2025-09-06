@@ -8,16 +8,17 @@
           alt="error"
         />
         <h3 class="fs-24 mb-3">
-          Looks like we did not find this page, please try again later.
+          {{ $t('llwdnftp') }}
         </h3>
         <p class="mb-4">
-          But no worries! Our team is looking ever where while you wait safely.
+          {{ $t('bnootilew') }}
         </p>
         <RouterLink
           to="/"
           class="btn btn-primary py-2 px-4 fs-16 fw-medium"
         >
-          <span class="d-inline-block py-1">Back To Home</span>
+          <span class="d-inline-block py-1">
+          {{ $t('backtohome') }}</span>
         </RouterLink>
       </div>
     </div>

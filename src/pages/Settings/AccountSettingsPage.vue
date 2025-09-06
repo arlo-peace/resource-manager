@@ -78,7 +78,7 @@
           </div>
           <div class="col-lg-6">
             <div class="form-group mb-4">
-              <label class="label text-secondary">{{ $t('telegram') }}</label>
+              <label class="label text-secondary">{{ $t('tg') }}</label>
               <div class="form-group position-relative">
                 <input
                   type="url"

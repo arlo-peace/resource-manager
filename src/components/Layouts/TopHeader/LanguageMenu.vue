@@ -55,11 +55,15 @@
 </template>
 
 <script>
+import { useLocaleStore } from '@/stores/locale';
+
 export default {
   name: "LanguageMenu",
   methods: {
     changeLanguage(lang) {
       this.$i18n.locale = lang
+      const locale = useLocaleStore();
+      locale.setLocale(lang)
     }
   }
 };
